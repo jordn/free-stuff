@@ -1,3 +1,39 @@
 /* CSS declarations go here */
 
 @import ".meteor/local/build/programs/server/assets/packages/matthew_foundation5-sass/foundation";
+
+header {
+  position: fixed;
+  top:0;
+  left: 0;
+  right: 0;
+  height: 40px;
+
+  background-color: #373746;
+
+  text-align: center;
+
+  h1 {
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
+
+main {
+  .item {
+    img {
+    }
+  }
+
+}
+
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #373746;
+}
