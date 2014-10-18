@@ -19,20 +19,27 @@ if (Meteor.isClient) {
     'click button': function () {
       // increment the counter when button is clicked
       Session.set("counter", Session.get("counter") + 1);
-      MeteorCamera.getPicture({/*height, width, quality*/}, function(error, data) {
-        if (!error) {
-          Items.insert({photo: data});
-        }
-      });
+
+      lat = lon = 0;
+
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(function(position) {
-          // Save this somewhere
-          console.log(position.coords.latitude);
-          console.log(position.coords.longitude);
+          lat = position.coords.latitude;
+          lon = position.coords.longitude;
         });
       } else {
         console.log("Geolocation is bitchin'.");
       }
+
+      MeteorCamera.getPicture({/*height, width, quality*/}, function(error, data) {
+        if (!error) {
+          Items.insert({
+            photo: data,
+            lat: lat,
+            lon: lon
+          });
+        }
+      });
     }
   });
 
