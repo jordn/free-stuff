@@ -12,6 +12,9 @@ if (Meteor.isClient) {
     'click button': function () {
       // increment the counter when button is clicked
       Session.set("counter", Session.get("counter") + 1);
+      MeteorCamera.getPicture({}, function(error, data){
+        // callback(error, data)
+      });
     }
   });
 }
