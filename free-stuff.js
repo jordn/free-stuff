@@ -19,6 +19,15 @@ if (Meteor.isClient) {
         console.log(data);
         // callback(error, data)
       });
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          // Save this somewhere
+          console.log(position.coords.latitude);
+          console.log(position.coords.longitude);
+        });
+      } else {
+        console.log("Geolocation is bitchin'.");
+      }
     }
   });
 
