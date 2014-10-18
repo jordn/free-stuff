@@ -3,23 +3,33 @@
 </head>
 
 <body>
-    {{initFoundation}}
-  <h1>Free Stuff</h1>
-  {{> hello}}
-  <hr>
-  {{> items}}
+  {{initFoundation}}
+  <header>
+    <h1>Free Stuff</h1>
+  </header>
+
+  <main>
+    {{> items}}
+  </main>
+
+  <footer>
+    {{> upload }}
+  </footer>
+
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
+<template name="upload">
+  <button>Offer an item</button>
   <p>You've pressed the button {{counter}} times.</p>
 </template>
 
 <template name="items">
   Photos
-  {{#each items}}
-    {{>item}}
-  {{/each}}
+  <ul class="small-blog-grid-1 medium-block-grid-2 large-block-grid-3">
+    {{#each items}}
+      <li>{{>item}}</li>
+    {{/each}}
+  </ul>
 </template>
 
 <template name="item">
