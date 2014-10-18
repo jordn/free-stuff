@@ -3,22 +3,23 @@
 </head>
 
 <body>
-
   {{initFoundation}}
+  {{> Template.dynamic template=appView data=dataHelpers}}
+</body>
 
+<template name="feed">
   <header>
     <h1>Free Stuff</h1>
   </header>
 
-  <main>
+  <main id="itemFeed">
     {{> items}}
   </main>
 
   <footer>
     {{> upload }}
   </footer>
-
-</body>
+</template>
 
 <template name="upload">
   You've pressed the button {{counter}} times
@@ -26,15 +27,39 @@
 </template>
 
 <template name="items">
-  Photos
-  <ul class="small-blog-grid-1 medium-block-grid-2 large-block-grid-3">
-    {{#each items}}
-      <li>{{>item}}</li>
-    {{/each}}
-  </ul>
+  <div class="row">
+    Photos
+    <ul class="small-blog-grid-1 medium-block-grid-2 large-block-grid-3">
+      {{#each items}}
+        <li>{{>item}}</li>
+      {{/each}}
+    </ul>
+  </div>
 </template>
 
 <template name="item">
-    <img src="{{photo}}">
-    <p>{{lat}} — {{lon}}</p>
+  <img src="{{photo}}">
+  <p>{{description}}</p>
+  <p><i class="fi-marker"></i> {{lon}}, {{lat}}</p>
+</template>
+
+
+<template name="itemSave">
+  <div class="itemSave row collapse">
+    <form name="itemForm">
+      <div class="small-4 columns">
+        <img src="{{photo}}">
+        <input name="photo" id="itemForm-photo" type="hidden" value={{photo}}>
+      </div>
+      <div class="small-8 columns">
+        <input name="lat" id="itemForm-lat" type="hidden" value={{lat}}>
+        <input name="lon" id="itemForm-lon" type="hidden" value={{lon}}>
+        <input name="description" id="itemForm-description" type="text" placeholder="Write a description" autofocus="autofocus">
+      </div>
+      <div class="small-12 columns">
+        <input type="submit" class="button" value="save">
+        <a href="" class=".cancel">Cancel</a>
+      </div>
+    </form>
+  </div>
 </template>

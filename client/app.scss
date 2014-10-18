@@ -1,8 +1,9 @@
 /* CSS declarations go here */
 
 @import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
-@import "client/_foundation_settings.scss";
-@import ".meteor/local/build/programs/server/assets/packages/matthew_foundation5-sass/foundation";
+@import "_foundation_settings.scss";
+@import "../.meteor/local/build/programs/server/assets/packages/matthew_foundation5-sass/foundation";
+@import "lib/foundation-icons/foundation-icons.css";
 
 body {
   font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
@@ -33,7 +34,6 @@ main {
     img {
     }
   }
-
 }
 
 
@@ -44,4 +44,21 @@ footer {
   right: 0;
   height: 60px;
   background-color: #373746;
+}
+
+.itemSave {
+  position: fixed;
+  z-index: 1000;
+  top:10%;
+  left:10%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  line-height: 1.3em;
+  padding: 20px;
+  border-radius: 4px;
+  background-color: white;
+
+  img {
+    width: 200px;
+  }
+
 }
