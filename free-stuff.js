@@ -19,9 +19,25 @@ if (Meteor.isClient) {
     'click button': function () {
       // increment the counter when button is clicked
       Session.set("counter", Session.get("counter") + 1);
+
+      lat = lon = 0;
+
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          lat = position.coords.latitude;
+          lon = position.coords.longitude;
+        });
+      } else {
+        console.log("Geolocation is bitchin'.");
+      }
+
       MeteorCamera.getPicture({/*height, width, quality*/}, function(error, data) {
         if (!error) {
-          Items.insert({photo: data});
+          Items.insert({
+            photo: data,
+            lat: lat,
+            lon: lon
+          });
         }
       });
     }
