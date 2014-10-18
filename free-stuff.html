@@ -3,12 +3,18 @@
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
-
+    {{initFoundation}}
+  <h1>Free Stuff</h1>
   {{> hello}}
 </body>
 
 <template name="hello">
+  <button>Click Me</button>
+  <p>You've pressed the button {{counter}} times.</p>
+</template>
+
+
+<template name="click">
   <button>Click Me</button>
   <p>You've pressed the button {{counter}} times.</p>
 </template>

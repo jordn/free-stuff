@@ -15,6 +15,7 @@ deps@1.0.5
 ejson@1.0.4
 fastclick@1.0.1
 follower-livedata@1.0.2
+fourseven:scss@0.9.4
 geojson-utils@1.0.1
 html-tools@1.0.2
 htmljs@1.0.2
@@ -25,6 +26,7 @@ jquery@1.0.1
 json@1.0.1
 livedata@1.0.11
 logging@1.0.4
+matthew:foundation5-sass@0.1.16
 meteor-platform@1.1.2
 meteor@1.1.2
 minifiers@1.1.1
