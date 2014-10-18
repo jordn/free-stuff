@@ -1,3 +1,5 @@
+Items = new Mongo.Collection("items");
+
 if (Meteor.isClient) {
   // counter starts at 0
   Session.setDefault("counter", 0);
@@ -12,11 +14,18 @@ if (Meteor.isClient) {
     'click button': function () {
       // increment the counter when button is clicked
       Session.set("counter", Session.get("counter") + 1);
-      MeteorCamera.getPicture({}, function(error, data){
+      MeteorCamera.getPicture({}, function(error, data) {
+        Items.insert({photo: data});
+        console.log(data);
         // callback(error, data)
       });
     }
   });
+
+  Template.items.items = function () {
+    console.log('rendering photos');
+    return Items.find();
+  }
 }
 
 if (Meteor.isServer) {

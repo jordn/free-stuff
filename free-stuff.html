@@ -6,6 +6,8 @@
     {{initFoundation}}
   <h1>Free Stuff</h1>
   {{> hello}}
+  <hr>
+  {{> items}}
 </body>
 
 <template name="hello">
@@ -13,8 +15,13 @@
   <p>You've pressed the button {{counter}} times.</p>
 </template>
 
+<template name="items">
+  Photos
+  {{#each items}}
+    {{>item}}
+  {{/each}}
+</template>
 
-<template name="click">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="item">
+    <img src="{{photo}}">
 </template>
