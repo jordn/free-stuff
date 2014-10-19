@@ -62,7 +62,7 @@
 
 <template name="item">
   <img src="{{photo}}">
-  <span class="seller">{{seller.profile.name}}</span>
+  <span class="seller">{{seller.profile.name}}<img src="{{seller.profile.picture}}"></span>
   <ul class="button-group">
     <li><a href="{{pathFor 'item'}}" class="success button">Contact</a></li>
   <li><a href="#" class="secondary button">Dismiss</a></li>
