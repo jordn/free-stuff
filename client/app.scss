@@ -34,9 +34,26 @@ header {
 .item {
   background-color: white;
   border-radius: 4px;
+  padding: 8px;
 }
 .item-photo {
+}
+.item-price {
+  .currency {
+    font-size: 15px;
+    font-weight: 400;
+    position: relative;
+    top: -6px;
+    padding: 3px;
 
+  }
+  font-size: 28px;
+  font-weight: 700;
+}
+.item-distance {
+  padding-top: 4px;
+  font-size: 24px;
+  font-weight: 400;
 }
 .item-description {
   display: block;
@@ -46,6 +63,16 @@ header {
 
 .item-seller {
   font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.item-seller {
+    .avatar {
+    height: 30px;
+    width: 30px;
+    margin: 0 5px;
+    border-radius: 40px;
+  }
 }
 
 
@@ -82,5 +109,4 @@ footer {
   width: 50px;
   margin: 0 5px;
   border-radius: 4px;
-
 }

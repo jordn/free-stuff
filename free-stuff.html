@@ -11,6 +11,7 @@
         {{> loginButtons}}
         {{#if currentUser}}
           <a href="">My posts</a>
+          <img class="avatar" src="{{currentUser.profile.picture}}">
         {{/if}}
       </span>
     </div>
@@ -64,9 +65,13 @@
 
 <template name="item">
   <div class="item">
+    <div class="item-seller"><img class="avatar" src="{{seller.profile.picture}}">{{seller.profile.name}}</div>
     <img class="item-photo" src="{{photo}}">
+    <div class="clearfix">
+      <span class="item-price left" field="price"><span class="currency">£</span>FREE</span>
+      <span class="item-distance right" field="distance"><i class="fi-marker"></i> {{distance}} km</span>
+    </div>
     <div class="item-description" field="description" contenteditable="{{owner}}">{{description}}</div>
-    <div class="item-seller">{{seller.profile.name}}<img class="avatar" src="{{seller.profile.picture}}"></div>
     <ul class="button-group">
       {{#if owner }}
         <li><a href="#" class="secondary button">Mark as no longer available</a></li>
@@ -74,9 +79,6 @@
         <li><a href="{{pathFor 'item'}}" class="success button">Contact</a></li>
       {{/if}}
     </ul>
-
-
-    <p><i class="fi-marker"></i> {{distance}} {{lon}}, {{lat}}</p>
   </div>
 </template>
 

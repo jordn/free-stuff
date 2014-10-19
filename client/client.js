@@ -22,7 +22,7 @@ Template.items.helpers({
 
     var items = Items.find({}, {sort: {'createdAt': -1}});
     return _.map(items.fetch(), function (item) {
-      function measure(lat1, lon1,lat2 , lon2){  // generally used geo measurement function
+      function measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
           var R = 6378.137; // Radius of earth in KM
           var dLat = (lat2 - lat1) * Math.PI / 180;
           var dLon = (lon2 - lon1) * Math.PI / 180;
@@ -31,7 +31,7 @@ Template.items.helpers({
           Math.sin(dLon/2) * Math.sin(dLon/2);
           var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
           var d = R * c;
-          return d * 1000; // meters
+          return d.toFixed(1) ; // kilometers
       }
       item.distance = measure(item.lat, item.lon, parseFloat(Session.get('lat')), parseFloat(Session.get('lon')));
 
