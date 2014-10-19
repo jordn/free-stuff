@@ -1,17 +1,19 @@
-var appView = "feed",
- lat = lon = 0;
+Meteor.startup(function() {
+  var appView = "feed",
+   lat = lon = 0;
 
-// counter starts at 0
-Session.setDefault("lat", 0);
-Session.setDefault("lon", 0);
+  // counter starts at 0
+  Session.setDefault("lat", 0);
+  Session.setDefault("lon", 0);
 
-if ("geolocation" in navigator) {
-  navigator.geolocation.getCurrentPosition(function(position) {
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(function(position) {
 
-    Session.set("lat", position.coords.latitude);
-    Session.set("lon", position.coords.longitude);
-  });
-}
+      Session.set("lat", position.coords.latitude);
+      Session.set("lon", position.coords.longitude);
+    });
+  }
+})
 
 
 Template.items.helpers({
@@ -32,10 +34,30 @@ Template.items.helpers({
           return d * 1000; // meters
       }
       item.distance = measure(item.lat, item.lon, parseFloat(Session.get('lat')), parseFloat(Session.get('lon')));
+
+      console.log(item.seller._id)
+      console.log(Meteor.user()._id)
+      console.log(item.seller._id === Meteor.user()._id)
+      if (item.seller._id === Meteor.user()._id) {
+        console.log("owner")
+        item.owner = true;
+      }
       return item;
     });
   }
 });
+
+Template.item.events({
+  'blur [contenteditable="true"]': function (event) {
+      saveThis(event, this);
+  },
+  'keydown [contenteditable="true"]': function (event) {
+    if (event.keyCode == 13) {
+      event.preventDefault();
+      event.currentTarget.blur();
+    }
+  },
+})
 
 
 Template.footer.events({

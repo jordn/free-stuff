@@ -7,27 +7,45 @@
 
 body {
   font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
+  background-color: #2e2f2b;
 }
 
 header {
   width: 100%;
   background-color: #373746;
-  text-align: center;
-
   h1 {
-    color: white;
-    font-size: 20px;
+    a, a:hover {
+      color: white;
+    }
+    font-size: 22px;
     font-weight: 700;
   }
 }
 
-main {
+.itemFeed {
   margin-top: 20px;
   margin-bottom: 80px;
   .item {
     img {
     }
   }
+}
+
+.item {
+  background-color: white;
+  border-radius: 4px;
+}
+.item-photo {
+
+}
+.item-description {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.item-seller {
+  font-weight: 700;
 }
 
 
@@ -58,13 +76,11 @@ footer {
 }
 
 
-.seller {
-  font-weight: 700;
-}
 .avatar {
   display: inline-block;
-  height: 80px;
-  width: 80px;
+  height: 50px;
+  width: 50px;
+  margin: 0 5px;
   border-radius: 4px;
 
 }

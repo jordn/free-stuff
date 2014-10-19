@@ -5,7 +5,15 @@
 <template name="layout">
   {{initFoundation}}
   <header>
-    <h1>{{title}}</h1>
+    <div class="row clearfix">
+      <h1 class="left"><a href="{{pathFor 'itemFeed'}}">Free Stuff</a></h1>
+      <span class="right">
+        {{> loginButtons}}
+        {{#if currentUser}}
+          <a href="">My posts</a>
+        {{/if}}
+      </span>
+    </div>
   </header>
 
   <main>
@@ -15,15 +23,9 @@
 
 
 <template name="itemFeed">
-  <header>
-    <h1><a href="{{pathFor 'itemFeed'}}">Free Stuff</a></h1>
-    {{> loginButtons}}
-  </header>
-
-  <main>
     {{> items}}
-  </main>
-  <footer>
+
+  <footer class="uploadBar">
     {{> footer }}
   </footer>
 </template>
@@ -61,15 +63,21 @@
 
 
 <template name="item">
-  <img src="{{photo}}">
-  <span class="seller">{{seller.profile.name}}<img src="{{seller.profile.picture}}"></span>
-  <ul class="button-group">
-    <li><a href="{{pathFor 'item'}}" class="success button">Contact</a></li>
-  <li><a href="#" class="secondary button">Dismiss</a></li>
-</ul>
+  <div class="item">
+    <img class="item-photo" src="{{photo}}">
+    <div class="item-description" contenteditable="true">{{description}}</div>
+    <div class="item-seller">{{seller.profile.name}}<img class="avatar" src="{{seller.profile.picture}}"></div>
+    <ul class="button-group">
+      {{#if owner }}
+        <li><a href="#" class="secondary button">Mark as no longer available</a></li>
+      {{ else }}
+        <li><a href="{{pathFor 'item'}}" class="success button">Contact</a></li>
+      {{/if}}
+    </ul>
 
-  <p>{{description}}</p>
-  <p><i class="fi-marker"></i> {{distance}} {{lon}}, {{lat}}</p>
+
+    <p><i class="fi-marker"></i> {{distance}} {{lon}}, {{lat}}</p>
+  </div>
 </template>
 
 
