@@ -1,30 +1,52 @@
 <head>
-  <title>free-stuff</title>
+  <title>Free Stuff</title>
 </head>
 
-<body>
+<template name="layout">
   {{initFoundation}}
-  {{> Template.dynamic template=appView data=dataHelpers}}
-</body>
-
-<template name="feed">
   <header>
-    <h1>Free Stuff</h1>
+    <h1>{{title}}</h1>
+  </header>
+
+  <main>
+    {{> yield}}
+  </main>
+</template>
+
+
+<template name="itemList">
+  <header>
+    <h1><a href="{{pathFor 'itemList'}}">Free Stuff</a></h1>
+    {{> loginButtons}}
   </header>
 
   <main id="itemFeed">
     {{> items}}
   </main>
-
   <footer>
-    {{> upload }}
+    {{> footer }}
   </footer>
 </template>
 
-<template name="upload">
-  You've pressed the button {{counter}} times
-  <button>Offer an item</button>
+
+<template name="signUp">
+  <header>
+    <h1>Free Stuff</h1>
+  </header>
+
+  <main>
+    <h2> Please sign in to do that action</h2>
+    {{> loginButtons}}
+  </main>
+
 </template>
+
+
+<template name="footer">
+  You've pressed the button {{counter}} times
+  <a href="{{pathFor 'itemAdd'}}" class="button">Offer an item</a>
+</template>
+
 
 <template name="items">
   <div class="row">
@@ -37,17 +59,24 @@
   </div>
 </template>
 
+
 <template name="item">
   <img src="{{photo}}">
+  <ul class="button-group">
+    <li><a href="{{pathFor 'item'}}" class="success button">Contact</a></li>
+  <li><a href="#" class="secondary button">Dismiss</a></li>
+</ul>
+
   <p>{{description}}</p>
   <p><i class="fi-marker"></i> {{lon}}, {{lat}}</p>
 </template>
 
 
-<template name="itemSave">
-  <div class="itemSave row collapse">
+<template name="itemAdd">
+  <div class="itemAdd row collapse">
     <form name="itemForm">
       <div class="small-4 columns">
+        photo {{photo}}
         <img src="{{photo}}">
         <input name="photo" id="itemForm-photo" type="hidden" value={{photo}}>
       </div>
@@ -62,4 +91,8 @@
       </div>
     </form>
   </div>
+</template>
+
+<template name="loading">
+  {{>spinner}}
 </template>
