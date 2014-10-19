@@ -50,8 +50,15 @@ Template.footer.events({
 
 Template.itemAdd.helpers({
   photo: function() {
-    Session.get('photo');
-  }
+    return Session.get('photo');
+  },
+  lat: function() {
+    return Session.get('lat');
+  },
+  lon: function() {
+    return Session.get('lon');
+  },
+
 });
 
 Template.itemAdd.rendered = function() {
@@ -60,30 +67,19 @@ Template.itemAdd.rendered = function() {
       console.log(error)
       console.log($('main'))
       console.log(document.getElementById('itemFeed'))
-
-      // Session.set("appView", "itemSave");
       Session.set("photo", data);
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          lat = position.coords.latitude;
+          lon = position.coords.longitude;
+          Session.set("lat", lat);
+          Session.set("lon", lon);
+        });
+      }
     }
   });
 };
 
-
-    // var lat = lon = 0;
-
-    // if ("geolocation" in navigator) {
-    //   navigator.geolocation.getCurrentPosition(function(position) {
-    //     lat = position.coords.latitude;
-    //     lon = position.coords.longitude;
-    //     Session.set("lat", lat);
-    //     Session.set("lon", lon);
-    //   });
-    // } else {
-    //   console.log("Geolocation is bitchin'.");
-    // }
-
-
-//   }
-// });
 
 Template.itemAdd.events({
   'submit form': function (event) {
@@ -102,11 +98,11 @@ Template.itemAdd.events({
       createdAt: new Date()
     });
     console.log(item);
-    Blaze.remove(itemSaveModal)
+    Router.go('itemFeed');
+
 
   }, 'click .cancel': function (event) {
-    Blaze.remove(itemSaveModal)
-
+    Router.go('itemFeed')
   }
 
 });

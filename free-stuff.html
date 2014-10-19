@@ -14,13 +14,13 @@
 </template>
 
 
-<template name="itemList">
+<template name="itemFeed">
   <header>
-    <h1><a href="{{pathFor 'itemList'}}">Free Stuff</a></h1>
+    <h1><a href="{{pathFor 'itemFeed'}}">Free Stuff</a></h1>
     {{> loginButtons}}
   </header>
 
-  <main id="itemFeed">
+  <main>
     {{> items}}
   </main>
   <footer>
@@ -62,6 +62,7 @@
 
 <template name="item">
   <img src="{{photo}}">
+  <span class="seller">{{seller.profile.name}}</span>
   <ul class="button-group">
     <li><a href="{{pathFor 'item'}}" class="success button">Contact</a></li>
   <li><a href="#" class="secondary button">Dismiss</a></li>
@@ -76,9 +77,10 @@
   <div class="itemAdd row collapse">
     <form name="itemForm">
       <div class="small-4 columns">
-        photo {{photo}}
         <img src="{{photo}}">
         <input name="photo" id="itemForm-photo" type="hidden" value={{photo}}>
+        lat: {{lat}}
+        lon: {{lon}}
       </div>
       <div class="small-8 columns">
         <input name="lat" id="itemForm-lat" type="hidden" value={{lat}}>
