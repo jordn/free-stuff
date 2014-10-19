@@ -1,8 +1,4 @@
 Meteor.startup(function() {
-  var appView = "feed",
-   lat = lon = 0;
-
-  // counter starts at 0
   Session.setDefault("lat", 0);
   Session.setDefault("lon", 0);
 
@@ -13,7 +9,22 @@ Meteor.startup(function() {
       Session.set("lon", position.coords.longitude);
     });
   }
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '843535335692930',
+      status     : true,
+      xfbml      : true,
+      version    : 'v2.1'
+    });
+  };
+
 })
+
+Accounts.ui.config({
+  requestPermissions: {
+     facebook: ['email'],
+  }
+});
 
 
 Template.items.helpers({
@@ -70,6 +81,14 @@ Template.item.events({
       event.currentTarget.blur();
     }
   },
+  'click .item-contact': function(event) {
+    // FB.ui({
+      // method: 'feed'
+    // });
+    FB.ui({
+      method: 'send'
+    });
+  }
 })
 
 

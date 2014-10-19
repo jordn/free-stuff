@@ -46,14 +46,12 @@
 
 
 <template name="footer">
-  You've pressed the button {{counter}} times
   <a href="{{pathFor 'itemAdd'}}" class="button">Offer an item</a>
 </template>
 
 
 <template name="items">
-  <div class="row">
-    Photos
+  <div class="itemFeed row">
     <ul class="small-blog-grid-1 medium-block-grid-2 large-block-grid-3">
       {{#each items}}
         <li>{{>item}}</li>
@@ -72,13 +70,11 @@
       <span class="item-distance right" field="distance"><i class="fi-marker"></i> {{distance}} km</span>
     </div>
     <div class="item-description" field="description" contenteditable="{{owner}}">{{description}}</div>
-    <ul class="button-group">
-      {{#if owner }}
-        <li><a href="#" class="secondary button">Mark as no longer available</a></li>
-      {{ else }}
-        <li><a href="{{pathFor 'item'}}" class="success button">Contact</a></li>
-      {{/if}}
-    </ul>
+    {{#if owner }}
+      <a href="#" class="secondary button expand">Mark as no longer available</a>
+    {{else}}
+      <a class="success button expand item-contact">Contact</a>
+    {{/if}}
   </div>
 </template>
 
