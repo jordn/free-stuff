@@ -1,25 +1,21 @@
-var appView = "feed"
+var appView = "feed", lat = lon = 0;
 
 // counter starts at 0
 Session.setDefault("counter", 0);
 Session.setDefault("appView", "feed");
+Session.setDefault("lat", 0);
+Session.setDefault("lon", 0);  
 
-Template.body.helpers({
-  appView: function () {
-    return Session.get('appView');
-  },
-  // Not used atm
-  dataHelpers: function() {
-    var data = UI._templateInstance().data || {};
-    //Add the helpers onto the existing data (if any)
-    _(data).extend({
-      color: function() {
-        return "#f00";
-      }
-    });
-    return data;
-  }
-});
+if ("geolocation" in navigator) {
+  navigator.geolocation.getCurrentPosition(function(position) {
+    
+    Session.set("lat", position.coords.latitude);
+    Session.set("lon", position.coords.longitude);
+  });
+} else {
+  Session.set("lat", 0);
+  Session.set("lon", 0);
+}
 
 Template.upload.helpers({
   counter: function () {
@@ -30,7 +26,23 @@ Template.upload.helpers({
 Template.items.helpers({
   items: function () {
     console.log('rendering photos');
-    return Items.find({}, {sort: {'dateAdded': -1}});
+
+    var items = Items.find({}, {sort: {'dateAdded': -1}});
+    return _.map(items.fetch(), function (item) {
+      function measure(lat1, lon1,lat2 , lon2){  // generally used geo measurement function
+          var R = 6378.137; // Radius of earth in KM
+          var dLat = (lat2 - lat1) * Math.PI / 180;
+          var dLon = (lon2 - lon1) * Math.PI / 180;
+          var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+          Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+          Math.sin(dLon/2) * Math.sin(dLon/2);
+          var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+          var d = R * c;
+          return d * 1000; // meters
+      } 
+      item.distance = measure(item.lat, item.lon, parseFloat(Session.get('lat')), parseFloat(Session.get('lon')));
+      return item;
+    });
   }
 });
 
@@ -98,4 +110,21 @@ Template.itemSave.events({
 
   }
 
-})
+});
+
+Template.body.helpers({
+  appView: function () {
+    return Session.get('appView');
+  },
+  // Not used atm
+  dataHelpers: function() {
+    var data = UI._templateInstance().data || {};
+    //Add the helpers onto the existing data (if any)
+    _(data).extend({
+      color: function() {
+        return "#f00";
+      }
+    });
+    return data;
+  }
+});
