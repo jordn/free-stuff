@@ -65,7 +65,7 @@
 <template name="item">
   <div class="item">
     <img class="item-photo" src="{{photo}}">
-    <div class="item-description" field="description" contenteditable="true">{{description}}</div>
+    <div class="item-description" field="description" contenteditable="{{owner}}">{{description}}</div>
     <div class="item-seller">{{seller.profile.name}}<img class="avatar" src="{{seller.profile.picture}}"></div>
     <ul class="button-group">
       {{#if owner }}

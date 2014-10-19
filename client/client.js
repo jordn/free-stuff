@@ -35,10 +35,7 @@ Template.items.helpers({
       }
       item.distance = measure(item.lat, item.lon, parseFloat(Session.get('lat')), parseFloat(Session.get('lon')));
 
-      console.log(item.seller._id)
-      console.log(Meteor.user()._id)
-      console.log(item.seller._id === Meteor.user()._id)
-      if (item.seller._id === Meteor.user()._id) {
+      if (Meteor.user() && item.seller._id === Meteor.user()._id) {
         console.log("owner")
         item.owner = true;
       }
@@ -48,16 +45,19 @@ Template.items.helpers({
 });
 
 var saveThis = function(event, that) {
-  console.log(event);
-  console.log(that);
-  var field = $(event.currentTarget);
-  console.log(field);
-  var propertyName = field.attr('field');
-  var newValue = field.text();
-  var update = {};
-  update[propertyName] = newValue;
-  console.log(update);
-  var candidate = Items.update(that._id, {$set: update });
+  if (that.owner) {
+    console.log(event);
+    console.log(that);
+    var field = $(event.currentTarget);
+    console.log(field);
+    var propertyName = field.attr('field');
+    var newValue = field.text();
+    var update = {};
+    update[propertyName] = newValue;
+    console.log(update);
+    var candidate = Items.update(that._id, {$set: update });
+    field.value(newValue);
+  }
 }
 
 Template.item.events({
@@ -133,6 +133,8 @@ Template.itemAdd.events({
       createdAt: new Date()
     });
     console.log(item);
+    delete Session.keys['photo'];
+
     Router.go('itemFeed');
 
 
