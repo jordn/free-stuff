@@ -47,6 +47,19 @@ Template.items.helpers({
   }
 });
 
+var saveThis = function(event, that) {
+  console.log(event);
+  console.log(that);
+  var field = $(event.currentTarget);
+  console.log(field);
+  var propertyName = field.attr('field');
+  var newValue = field.text();
+  var update = {};
+  update[propertyName] = newValue;
+  console.log(update);
+  var candidate = Items.update(that._id, {$set: update });
+}
+
 Template.item.events({
   'blur [contenteditable="true"]': function (event) {
       saveThis(event, this);
